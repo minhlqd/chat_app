@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
     Button btn_login;
     TextView forgot_password;
 
-    //LoginButton loginButton;
 
     SignInButton signInButton;
     GoogleSignInClient googleSignInClient;
@@ -65,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
         btn_login = (Button) findViewById(R.id.btn_login);
         forgot_password = findViewById(R.id.forgot_password);
         signInButton = findViewById(R.id.google_login);
-        //loginButton = findViewById(R.id.facebook_login);
 
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -112,7 +110,6 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-
                 }
             }
         });
