@@ -50,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseAuth auth;
 
     StorageReference storageReference;
+
     private static final int IMAGE_REQUEST = 1;
     private Uri imageUri;
     private StorageTask uploadTask;
