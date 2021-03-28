@@ -96,8 +96,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
             username = (TextView) itemView.findViewById(R.id.username);
             profile_image = (ImageView) itemView.findViewById(R.id.profile_image);
-            img_on = (ImageView) itemView.findViewById(R.id.img_on);
-            img_off = (ImageView) itemView.findViewById(R.id.img_off);
+//            img_on = (ImageView) itemView.findViewById(R.id.img_on);
+//            img_off = (ImageView) itemView.findViewById(R.id.img_off);
         }
     }
 }
