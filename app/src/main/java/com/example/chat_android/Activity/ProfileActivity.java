@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -11,6 +12,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     DatabaseReference reference;
     FirebaseUser firebaseUser;
+    FirebaseAuth auth;
 
     StorageReference storageReference;
     private static final int IMAGE_REQUEST = 1;
@@ -81,12 +85,48 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogUsername();
+            }
+        });
+
         profile_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openImage();
             }
         });
+    }
+
+    private void DialogUsername() {
+        Dialog dialog = new Dialog(this);
+        dialog.setTitle("Username");
+        dialog.setContentView(R.layout.dialog_username);
+        dialog.setCanceledOnTouchOutside(false);
+
+        EditText username_edit = findViewById(R.id.username_edit);
+        Button confirm = findViewById(R.id.confirm);
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String edit_user = username_edit.getText().toString();
+                username.setText(edit_user);
+//                firebaseUser = auth.getCurrentUser();
+//                assert firebaseUser != null;
+//                String user_id = firebaseUser.getUid();
+//
+//                reference = FirebaseDatabase.getInstance().getReference("Users").child(user_id);
+//
+//                HashMap<String, String> hashMap = new HashMap<>();
+//                hashMap.put("username", edit_user);
+            }
+        });
+
+        dialog.show();
     }
 
     private void openImage() {
