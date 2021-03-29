@@ -107,26 +107,21 @@ public class ProfileActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.dialog_username);
         dialog.setCanceledOnTouchOutside(false);
 
-        EditText username_edit = findViewById(R.id.username_edit);
-        Button confirm = findViewById(R.id.confirm);
+        EditText username_edit = dialog.findViewById(R.id.username_edit);
+        Button confirm = dialog.findViewById(R.id.confirm);
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String edit_user = username_edit.getText().toString();
-                username.setText(edit_user);
-//                firebaseUser = auth.getCurrentUser();
-//                assert firebaseUser != null;
-//                String user_id = firebaseUser.getUid();
-//
-//                reference = FirebaseDatabase.getInstance().getReference("Users").child(user_id);
-//
-//                HashMap<String, String> hashMap = new HashMap<>();
-//                hashMap.put("username", edit_user);
+                reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("username", edit_user);
+                reference.updateChildren(hashMap);
+                dialog.dismiss();
             }
         });
-
         dialog.show();
     }
 
