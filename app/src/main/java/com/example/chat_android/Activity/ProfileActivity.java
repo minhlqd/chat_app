@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.chat_android.Model.Info;
 import com.example.chat_android.Model.User;
 import com.example.chat_android.R;
 import com.google.android.gms.tasks.Continuation;
@@ -44,6 +45,13 @@ public class ProfileActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
     TextView username;
+    TextView name;
+    TextView email;
+    TextView phone;
+    TextView date;
+
+    CircleImageView edit;
+
 
     DatabaseReference reference;
     FirebaseUser firebaseUser;
@@ -62,6 +70,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         profile_image = findViewById(R.id.profile_image);
         username = findViewById(R.id.username);
+        edit = findViewById(R.id.edit);
+
+        name = findViewById(R.id.fullName);
+        email = findViewById(R.id.email);
+        phone = findViewById(R.id.phone_number);
+        date = findViewById(R.id.dateOfBird);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
@@ -79,6 +93,7 @@ public class ProfileActivity extends AppCompatActivity {
                 } else {
                     Glide.with(ProfileActivity.this).load(user.getImageURL()).into(profile_image);
                 }
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -86,7 +101,26 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        username.setOnClickListener(new View.OnClickListener() {
+        reference = FirebaseDatabase.getInstance().getReference("Info").child(firebaseUser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Info info = snapshot.getValue(Info.class);
+
+                name.setText(info.getName());
+                email.setText(info.getEmail());
+                phone.setText(info.getPhone());
+                date.setText(info.getDate());
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogUsername();
@@ -104,21 +138,40 @@ public class ProfileActivity extends AppCompatActivity {
     private void DialogUsername() {
         Dialog dialog = new Dialog(this);
         dialog.setTitle("Username");
-        dialog.setContentView(R.layout.dialog_username);
+        dialog.setContentView(R.layout.dialog_edit_profile);
         dialog.setCanceledOnTouchOutside(false);
 
         EditText username_edit = dialog.findViewById(R.id.username_edit);
+        EditText name_edit = dialog.findViewById(R.id.fullName);
+        EditText email_edit = dialog.findViewById(R.id.email);
+        EditText phone_edit = dialog.findViewById(R.id.phone_number);
+        EditText date_edit = dialog.findViewById(R.id.dateOfBird);
         Button confirm = dialog.findViewById(R.id.confirm);
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                 String edit_user = username_edit.getText().toString();
                 reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("username", edit_user);
                 reference.updateChildren(hashMap);
+
+                String txt_name = name_edit.getText().toString();
+                String txt_date = date_edit.getText().toString();
+                String txt_email = email_edit.getText().toString();
+                String txt_phone = phone_edit.getText().toString();
+
+                reference = FirebaseDatabase.getInstance().getReference("Info").child(firebaseUser.getUid());
+
+                hashMap.put("name", txt_name);
+                hashMap.put("DateOfBird", txt_date);
+                hashMap.put("email", txt_email);
+                hashMap.put("phone", txt_phone);
+                reference.updateChildren(hashMap);
+
                 dialog.dismiss();
             }
         });
