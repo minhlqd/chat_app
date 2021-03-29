@@ -75,7 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
                 username.setText(user.getUsername());
 
                 if (user.getImageURL().equals("default")) {
-                    profile_image.setImageResource(R.mipmap.ic_launcher);
+                    profile_image.setImageResource(R.drawable.ic_name);
                 } else {
                     Glide.with(ProfileActivity.this).load(user.getImageURL()).into(profile_image);
                 }

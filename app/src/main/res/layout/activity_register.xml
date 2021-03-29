@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:text="register"
             android:id="@+id/btn_register"
-            android:background="@color/toolbar"
+            android:background="#309AEF"
             android:layout_marginTop="10dp"
             android:textColor="#FFF"/>
 

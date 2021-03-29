@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
 
 
-
         profile_img = (CircleImageView) findViewById(R.id.profile_image);
         username = (TextView) findViewById(R.id.username);
 
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 User user = snapshot.getValue(User.class);
                 username.setText(user.getUsername());
                 if (user.getImageURL().equals("default")) {
-                    profile_img.setImageResource(R.mipmap.ic_launcher);
+                    profile_img.setImageResource(R.drawable.ic_name);
 
                 } else {
                     Glide.with(MainActivity.this).load(user.getImageURL()).into(profile_img);

@@ -46,7 +46,7 @@ public class MessageActivity extends AppCompatActivity {
     DatabaseReference reference;
 
     MessageAdapter messageAdapter;
-    List<Chat> chats;
+    List<Chat> mChat;
 
     RecyclerView recyclerView;
 
@@ -70,7 +70,9 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView = findViewById(R.id.recycler_view);
+
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
@@ -127,7 +129,7 @@ public class MessageActivity extends AppCompatActivity {
                 username.setText(user.getUsername());
 
                 if (user.getImageURL().equals("default")) {
-                    profile_image.setImageResource(R.mipmap.ic_launcher);
+                    profile_image.setImageResource(R.drawable.ic_name);
                 } else {
                     Glide.with(MessageActivity.this).load(user.getImageURL()).into(profile_image);
                 }
@@ -146,6 +148,7 @@ public class MessageActivity extends AppCompatActivity {
     }
 
 
+    // Gửi tin nhắn
     private void sendMessage(String sender, String receiver, String message) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
@@ -158,29 +161,27 @@ public class MessageActivity extends AppCompatActivity {
         reference.child("Chats").push().setValue(hashMap);
     }
 
+    // Hiện thị tin nhắn
     private void readMessage(String my_id, String user_id, String image_url) {
-        chats = new ArrayList<>();
+        mChat = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                chats.clear();
+                mChat.clear();
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
 
                     Chat chat = dataSnapshot.getValue(Chat.class);
-                    if ((chat.getReceiver().equals(my_id) && chat.getMessage().equals(user_id)) ||
+                    if ((chat.getReceiver().equals(my_id) && chat.getSender().equals(user_id)) ||
                             (chat.getReceiver().equals(user_id) && chat.getSender().equals(my_id))) {
-
-                        chats.add(chat);
+                        mChat.add(chat);
 
                     }
-
-                    messageAdapter = new MessageAdapter(MessageActivity.this, chats, image_url);
+                    messageAdapter = new MessageAdapter(MessageActivity.this, mChat, image_url);
                     recyclerView.setAdapter(messageAdapter);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
