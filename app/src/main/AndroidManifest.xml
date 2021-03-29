@@ -14,8 +14,10 @@
         android:roundIcon="@drawable/ic_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp">
-        <activity android:name=".Activity.ResetPasswordActivity"
-            android:parentActivityName=".Activity.LoginActivity"/>
+        <activity android:name=".Activity.InfoActivity"></activity>
+        <activity
+            android:name=".Activity.ResetPasswordActivity"
+            android:parentActivityName=".Activity.LoginActivity" />
         <activity android:name=".Activity.ProfileActivity" />
         <activity android:name=".Activity.MessageActivity" />
         <activity
@@ -28,6 +30,7 @@
         <activity android:name=".Activity.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

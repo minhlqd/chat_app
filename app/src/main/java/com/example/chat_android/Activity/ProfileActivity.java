@@ -53,7 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private static final int IMAGE_REQUEST = 1;
     private Uri imageUri;
-    private StorageTask uploadTask;
+    private StorageTask<UploadTask.TaskSnapshot> uploadTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
