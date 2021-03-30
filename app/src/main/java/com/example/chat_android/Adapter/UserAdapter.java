@@ -35,7 +35,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.user_item, parent, false);
         return new UserAdapter.ViewHolder(view);
-
     }
 
     @Override
@@ -48,18 +47,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             Glide.with(context).load(user.getImageURL()).into(holder.profile_image);
         }
 
-//        if (is_chat) {
-//            if (user.getStatus().equals("online")) {
-//                holder.img_on.setVisibility(View.VISIBLE);
-//                holder.img_off.setVisibility(View.GONE);
-//            } else {
-//                holder.img_on.setVisibility(View.VISIBLE);
-//                holder.img_off.setVisibility(View.GONE);
-//            }
-//        } else {
-//            holder.img_on.setVisibility(View.GONE);
-//            holder.img_off.setVisibility(View.GONE);
-//        }
+        if (is_chat) {
+            if (user.getStatus().equals("online")) {
+                holder.img_on.setVisibility(View.VISIBLE);
+                holder.img_off.setVisibility(View.GONE);
+            } else {
+                holder.img_on.setVisibility(View.VISIBLE);
+                holder.img_off.setVisibility(View.GONE);
+            }
+        } else {
+            holder.img_on.setVisibility(View.GONE);
+            holder.img_off.setVisibility(View.GONE);
+        }
 
 
 
@@ -73,7 +72,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         });
 
     }
-
 
 
     @Override
@@ -96,8 +94,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
             username = (TextView) itemView.findViewById(R.id.username);
             profile_image = (ImageView) itemView.findViewById(R.id.profile_image);
-//            img_on = (ImageView) itemView.findViewById(R.id.img_on);
-//            img_off = (ImageView) itemView.findViewById(R.id.img_off);
+            img_on = (ImageView) itemView.findViewById(R.id.img_on);
+            img_off = (ImageView) itemView.findViewById(R.id.img_off);
         }
     }
 }
