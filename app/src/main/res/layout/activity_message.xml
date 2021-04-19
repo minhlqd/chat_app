@@ -30,7 +30,8 @@
                 android:layout_marginLeft="25dp"
                 android:text="username"
                 android:textColor="#FFF"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_marginStart="25dp" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -59,14 +60,17 @@
             android:background="@android:color/transparent"
             android:hint="Type a message..."
             android:layout_toLeftOf="@+id/btn_send"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/btn_send"
+            android:autofillHints="" />
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/btn_send"
             android:src="@drawable/ic_action_name"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:contentDescription="TODO" />
     </RelativeLayout>
 
 </RelativeLayout>

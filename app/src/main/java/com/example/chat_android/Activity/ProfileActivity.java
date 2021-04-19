@@ -44,14 +44,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
+    CircleImageView edit;
     TextView username;
     TextView name;
     TextView email;
     TextView phone;
     TextView date;
-
-    CircleImageView edit;
-
 
     DatabaseReference reference;
     FirebaseUser firebaseUser;
@@ -71,7 +69,6 @@ public class ProfileActivity extends AppCompatActivity {
         profile_image = findViewById(R.id.profile_image);
         username = findViewById(R.id.username);
         edit = findViewById(R.id.edit);
-
         name = findViewById(R.id.fullName);
         email = findViewById(R.id.email);
         phone = findViewById(R.id.phone_number);
@@ -93,7 +90,6 @@ public class ProfileActivity extends AppCompatActivity {
                 } else {
                     Glide.with(ProfileActivity.this).load(user.getImageURL()).into(profile_image);
                 }
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -115,7 +111,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
@@ -219,11 +214,10 @@ public class ProfileActivity extends AppCompatActivity {
                         HashMap<String, Object> map = new HashMap<>();
                         map.put("imageURL",mUri);
                         reference.updateChildren(map);
-                        progressDialog.dismiss();
                     } else {
                         Toast.makeText(ProfileActivity.this, "Failed", Toast.LENGTH_LONG).show();
-                        progressDialog.dismiss();
                     }
+                    progressDialog.dismiss();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -234,9 +228,7 @@ public class ProfileActivity extends AppCompatActivity {
             });
         } else {
             Toast.makeText(ProfileActivity.this, "No image selected", Toast.LENGTH_SHORT).show();
-
         }
-
     }
 
     @Override

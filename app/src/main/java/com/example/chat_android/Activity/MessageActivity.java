@@ -38,7 +38,6 @@ public class MessageActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
     TextView username;
-
     ImageButton btn_send;
     EditText text_send;
 
@@ -69,14 +68,11 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
-
-
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
-
 
         profile_image = findViewById(R.id.profile_image);
         username = findViewById(R.id.username);
@@ -134,10 +130,7 @@ public class MessageActivity extends AppCompatActivity {
                 }
 
                 readMessage(firebaseUser.getUid(), user_id, user.getImageURL());
-
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -146,11 +139,8 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
-
-    // Gửi tin nhắn
     private void sendMessage(String sender, String receiver, String message) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-
         HashMap<String, Object> hashMap = new HashMap<>();
 
         hashMap.put("sender", sender);
@@ -160,7 +150,6 @@ public class MessageActivity extends AppCompatActivity {
         reference.child("Chats").push().setValue(hashMap);
     }
 
-    // Hiện thị tin nhắn
     private void readMessage(String my_id, String user_id, String image_url) {
         mChat = new ArrayList<>();
 
@@ -175,7 +164,6 @@ public class MessageActivity extends AppCompatActivity {
                     if ((chat.getReceiver().equals(my_id) && chat.getSender().equals(user_id)) ||
                             (chat.getReceiver().equals(user_id) && chat.getSender().equals(my_id))) {
                         mChat.add(chat);
-
                     }
                     messageAdapter = new MessageAdapter(MessageActivity.this, mChat, image_url);
                     recyclerView.setAdapter(messageAdapter);
