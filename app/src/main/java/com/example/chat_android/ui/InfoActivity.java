@@ -1,4 +1,4 @@
-package com.example.chat_android.Activity;
+package com.example.chat_android.ui;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +21,6 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.icu.text.IDNA;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -29,8 +28,6 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;

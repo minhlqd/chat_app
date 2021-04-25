@@ -1,4 +1,4 @@
-package com.example.chat_android.Activity;
+package com.example.chat_android.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,9 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.chat_android.Adapter.MessageAdapter;
-import com.example.chat_android.Model.Chat;
-import com.example.chat_android.Model.User;
+import com.example.chat_android.adapter.MessageAdapter;
+import com.example.chat_android.model.Chat;
+import com.example.chat_android.model.User;
 import com.example.chat_android.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

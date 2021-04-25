@@ -1,4 +1,4 @@
-package com.example.chat_android.Activity;
+package com.example.chat_android.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +21,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +35,7 @@ import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
 
-    MaterialEditText email, password;
+    TextInputEditText email, password;
     Button btn_login;
     TextView forgot_password;
 
@@ -59,8 +60,8 @@ public class LoginActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        password = (MaterialEditText) findViewById(R.id.password);
-        email = (MaterialEditText) findViewById(R.id.email);
+        password = (TextInputEditText) findViewById(R.id.password);
+        email = (TextInputEditText) findViewById(R.id.email);
         btn_login = (Button) findViewById(R.id.btn_login);
         forgot_password = findViewById(R.id.forgot_password);
         signInButton = findViewById(R.id.google_login);

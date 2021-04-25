@@ -1,4 +1,4 @@
-package com.example.chat_android.Model;
+package com.example.chat_android.model;
 
 public class User {
 

@@ -14,20 +14,20 @@
         android:roundIcon="@mipmap/ic_chat_message_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp">
-        <activity android:name=".Activity.InfoActivity"></activity>
+        <activity android:name=".ui.InfoActivity"></activity>
         <activity
-            android:name=".Activity.ResetPasswordActivity"
-            android:parentActivityName=".Activity.LoginActivity" />
-        <activity android:name=".Activity.ProfileActivity" />
-        <activity android:name=".Activity.MessageActivity" />
+            android:name=".ui.ResetPasswordActivity"
+            android:parentActivityName=".ui.LoginActivity" />
+        <activity android:name=".ui.ProfileActivity" />
+        <activity android:name=".ui.MessageActivity" />
         <activity
-            android:name=".Activity.LoginActivity"
-            android:parentActivityName=".Activity.StartActivity" />
-        <activity android:name=".Activity.MainActivity" />
+            android:name=".ui.LoginActivity"
+            android:parentActivityName=".ui.StartActivity" />
+        <activity android:name=".ui.MainActivity" />
         <activity
-            android:name=".Activity.RegisterActivity"
-            android:parentActivityName=".Activity.StartActivity" />
-        <activity android:name=".Activity.StartActivity">
+            android:name=".ui.RegisterActivity"
+            android:parentActivityName=".ui.StartActivity" />
+        <activity android:name=".ui.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

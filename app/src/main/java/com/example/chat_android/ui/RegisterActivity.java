@@ -1,4 +1,4 @@
-package com.example.chat_android.Activity;
+package com.example.chat_android.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.chat_android.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,7 +28,7 @@ import java.util.HashMap;
 public class RegisterActivity extends AppCompatActivity {
 
 
-    MaterialEditText username, email, password;
+    TextInputEditText username, email, password;
     Button btn_register;
 
     FirebaseAuth auth;
@@ -43,9 +44,9 @@ public class RegisterActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Register");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        username = (MaterialEditText) findViewById(R.id.username);
-        password = (MaterialEditText) findViewById(R.id.password);
-        email = (MaterialEditText) findViewById(R.id.email);
+        username = (TextInputEditText) findViewById(R.id.username);
+        password = (TextInputEditText) findViewById(R.id.password);
+        email = (TextInputEditText) findViewById(R.id.email);
         btn_register = (Button) findViewById(R.id.btn_register);
 
         auth = FirebaseAuth.getInstance();

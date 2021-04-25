@@ -1,4 +1,4 @@
-package com.example.chat_android.Fragments;
+package com.example.chat_android.fragments;
 
 import android.os.Bundle;
 
@@ -11,9 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.chat_android.Adapter.UserAdapter;
-import com.example.chat_android.Model.Chat;
-import com.example.chat_android.Model.User;
+import com.example.chat_android.adapter.UserAdapter;
+import com.example.chat_android.model.Chat;
+import com.example.chat_android.model.User;
 import com.example.chat_android.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

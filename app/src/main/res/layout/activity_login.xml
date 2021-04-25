@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.LoginActivity">
+    tools:context=".ui.LoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,51 +24,62 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Login account"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:text="@string/login_account"
+                android:fontFamily="@font/montserrat_black"
+                android:textSize="26sp"/>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/Text"
+                    android:id="@+id/email"
+                    android:layout_marginTop="10dp"
+                    app:met_floatingLabel="normal"
+                    android:hint="@string/email"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.rengwuxian.materialedittext.MaterialEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/email"
-                android:layout_marginTop="10dp"
-                app:met_floatingLabel="normal"
-                android:hint="Email"/>
+                app:passwordToggleEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/Text"
+                    android:id="@+id/password"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    app:met_floatingLabel="normal"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_gravity="end"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/password"
-                android:layout_marginTop="10dp"
-                app:met_floatingLabel="normal"
-                android:inputType="textPassword"
-                android:hint="Password"/>
+                android:text="@string/forgot_your_password"
+                android:gravity="center"
+                android:fontFamily="@font/montserrat_light"
+                android:id="@+id/forgot_password"/>
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="login"
+                style="@style/Button"
+                android:text="@string/login"
                 android:id="@+id/btn_login"
-                android:background="#309AEF"
-                android:layout_marginTop="10dp"
-                android:textColor="#FFF"/>
+                android:background="@drawable/button_background"
+                android:layout_marginTop="10dp"/>
+
+            <Button
+                style="@style/Button"
+                android:text="@string/register"
+                android:id="@+id/btn_register"
+                android:background="@drawable/button_background"
+                android:layout_marginTop="10dp"/>
 
             <com.google.android.gms.common.SignInButton
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/google_login" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Forgot your password"
-                android:gravity="center"
-                android:textColor="@color/toolbar"
-                android:textStyle="bold"
-                android:id="@+id/forgot_password"/>
         </LinearLayout>
     </RelativeLayout>
-
 </ScrollView>

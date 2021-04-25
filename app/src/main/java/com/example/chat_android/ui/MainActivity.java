@@ -1,4 +1,4 @@
-package com.example.chat_android.Activity;
+package com.example.chat_android.ui;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,9 +16,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.chat_android.Fragments.ChatsFragment;
-import com.example.chat_android.Fragments.UsersFragment;
-import com.example.chat_android.Model.User;
+import com.example.chat_android.fragments.ChatsFragment;
+import com.example.chat_android.fragments.UsersFragment;
+import com.example.chat_android.model.User;
 import com.example.chat_android.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
