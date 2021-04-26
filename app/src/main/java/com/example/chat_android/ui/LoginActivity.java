@@ -32,13 +32,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
     TextInputEditText email, password;
     Button btn_login;
+    Button btn_register;
     TextView forgot_password;
-
 
     SignInButton signInButton;
     GoogleSignInClient googleSignInClient;
@@ -63,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         password = (TextInputEditText) findViewById(R.id.password);
         email = (TextInputEditText) findViewById(R.id.email);
         btn_login = (Button) findViewById(R.id.btn_login);
+        btn_register = (Button) findViewById(R.id.btn_register);
         forgot_password = findViewById(R.id.forgot_password);
         signInButton = findViewById(R.id.google_login);
 
@@ -80,6 +82,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
+
         forgot_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,11 +100,16 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String txt_email = email.getText().toString();
-                String txt_password = password.getText().toString();
+                String txt_email = Objects.requireNonNull(email.getText()).toString();
+                String txt_password = Objects.requireNonNull(password.getText()).toString();
 
                 if (TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
-                    Toast.makeText(LoginActivity.this, "All fields required",Toast.LENGTH_LONG).show();
+                    if (TextUtils.isEmpty(txt_password)){
+                        password.setError("Password is required");
+                    }
+                    if (TextUtils.isEmpty(txt_email)) {
+                        email.setError("username is required");
+                    }
                 } else {
                     auth.signInWithEmailAndPassword(txt_email, txt_password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -107,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();
                                     } else {
-                                        Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                                        email.setError("Email or password is incorrect");
                                     }
                                 }
                             });

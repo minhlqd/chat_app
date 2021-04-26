@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_chat_message_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp">
-        <activity android:name=".ui.InfoActivity"></activity>
+        <activity android:name=".ui.EditProfileActivity"></activity>
+        <activity android:name=".ui.InfoActivity" />
         <activity
             android:name=".ui.ResetPasswordActivity"
             android:parentActivityName=".ui.LoginActivity" />

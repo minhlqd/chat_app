@@ -7,8 +7,10 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -24,12 +26,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
 
     TextInputEditText username, email, password;
+    TextInputEditText re_password;
     Button btn_register;
+    TextView login;
 
     FirebaseAuth auth;
     DatabaseReference reference;
@@ -41,28 +46,48 @@ public class RegisterActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Register");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Register");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        login = (TextView) findViewById(R.id.login);
         username = (TextInputEditText) findViewById(R.id.username);
+        re_password = (TextInputEditText) findViewById(R.id.re_password);
         password = (TextInputEditText) findViewById(R.id.password);
         email = (TextInputEditText) findViewById(R.id.email);
         btn_register = (Button) findViewById(R.id.btn_register);
 
         auth = FirebaseAuth.getInstance();
 
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            }
+        });
+
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String txt_username = username.getText().toString();
-                String txt_email = email.getText().toString();
-                String txt_password = password.getText().toString();
-
+                String txt_username = Objects.requireNonNull(username.getText()).toString();
+                String txt_email = Objects.requireNonNull(email.getText()).toString();
+                String txt_password = Objects.requireNonNull(password.getText()).toString();
+                String txt_re_password = Objects.requireNonNull(re_password.getText()).toString();
                 if (TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
-                    Toast.makeText(RegisterActivity.this, "All fields required",Toast.LENGTH_LONG).show();
+                    if (TextUtils.isEmpty(txt_username)) {
+                        username.setError("Username is required");
+                    }
+                    if (TextUtils.isEmpty(txt_email)) {
+                        email.setError("Email is required");
+                    }
+                    if (TextUtils.isEmpty(txt_password)) {
+                        password.setError("Password is required");
+                    }
                 } else if (txt_password.length() < 6) {
-                    Toast.makeText(RegisterActivity.this, "Password must be least at 6 characters", Toast.LENGTH_SHORT).show();
-                } else {
+                    password.setError("Password must be least at 6 characters");}
+//                } else if (txt_re_password.equals(txt_password)) {
+//                    re_password.setError("Re-Password must like password ");
+//                }
+                else {
                     register(txt_username, txt_email, txt_password);
                 }
             }
@@ -77,6 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            Log.d("fix", email);
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             assert firebaseUser != null;
                             String user_id = firebaseUser.getUid();
@@ -94,7 +120,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
-                                        Intent intent = new Intent(RegisterActivity.this,InfoActivity.class);
+                                        Log.d("fix", email);
+                                        Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         Toast.makeText(RegisterActivity.this, "Register successfully", Toast.LENGTH_LONG ).show();
@@ -103,7 +130,6 @@ public class RegisterActivity extends AppCompatActivity {
                             });
                         } else {
                             Toast.makeText(RegisterActivity.this, "You can't register with with this email or password", Toast.LENGTH_LONG).show();
-
                         }
                     }
                 });
