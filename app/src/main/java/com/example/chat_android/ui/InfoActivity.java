@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -83,30 +84,27 @@ public class InfoActivity extends AppCompatActivity {
 //            }
 //        });
 
-       btn_confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String txt_name = fullName.getText().toString();
-                String txt_date = dateOfBird.getText().toString();
-                String txt_email = email.getText().toString();
-                String txt_phone = phone.getText().toString();
+       btn_confirm.setOnClickListener(v -> {
+           String txt_name = fullName.getText().toString();
+           String txt_date = dateOfBird.getText().toString();
+           String txt_email = email.getText().toString();
+           String txt_phone = phone.getText().toString();
 
-                firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                reference = FirebaseDatabase.getInstance().getReference("Info").child(firebaseUser.getUid());
+           firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+           reference = FirebaseDatabase.getInstance().getReference("Info").child(firebaseUser.getUid());
 
-                HashMap<String, Object> hashMap = new HashMap<>();
-                hashMap.put("name", txt_name);
-                hashMap.put("DateOfBird", txt_date);
-                hashMap.put("email", txt_email);
-                hashMap.put("phone", txt_phone);
+           HashMap<String, Object> hashMap = new HashMap<>();
+           hashMap.put("name", txt_name);
+           hashMap.put("DateOfBird", txt_date);
+           hashMap.put("email", txt_email);
+           hashMap.put("phone", txt_phone);
 
-                reference.updateChildren(hashMap);
+           reference.updateChildren(hashMap);
 
-                Intent intent = new Intent(InfoActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+           Intent intent = new Intent(InfoActivity.this, MainActivity.class);
+           startActivity(intent);
+           finish();
+       });
 
     }
 
@@ -144,38 +142,28 @@ public class InfoActivity extends AppCompatActivity {
         if (imageUri !=null) {
             final StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
             uploadTask = fileReference.putFile(imageUri);
-            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()){
-                        throw task.getException();
-                    }
-                    return fileReference.getDownloadUrl();
+            uploadTask.continueWithTask(task -> {
+                if (!task.isSuccessful()){
+                    throw Objects.requireNonNull(task.getException());
                 }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()) {
-                        Uri downloadUri = task.getResult();
-                        String mUri = downloadUri.toString();
+                return fileReference.getDownloadUrl();
+            }).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    String mUri = downloadUri.toString();
 
-                        reference = FirebaseDatabase.getInstance().getReference("Info").child(firebaseUser.getUid());
+                    reference = FirebaseDatabase.getInstance().getReference("Info").child(firebaseUser.getUid());
 
-                        HashMap<String, Object> map = new HashMap<>();
-                        map.put("imageURL",mUri);
-                        reference.updateChildren(map);
-                        progressDialog.dismiss();
-                    } else {
-                        Toast.makeText(InfoActivity.this, "Failed", Toast.LENGTH_LONG).show();
-                        progressDialog.dismiss();
-                    }
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("imageURL",mUri);
+                    reference.updateChildren(map);
+                } else {
+                    Toast.makeText(InfoActivity.this, "Failed", Toast.LENGTH_LONG).show();
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(InfoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                }
+                progressDialog.dismiss();
+            }).addOnFailureListener(e -> {
+                Toast.makeText(InfoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             });
         } else {
             Toast.makeText(InfoActivity.this, "No image selected", Toast.LENGTH_SHORT).show();

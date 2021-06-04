@@ -60,18 +60,6 @@
                     android:hint="@string/password"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true">
-                <com.google.android.material.textfield.TextInputEditText
-                    style="@style/Text"
-                    android:id="@+id/re_password"
-                    android:inputType="textPassword"
-                    android:hint="@string/re_password"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
             <Button
                 style="@style/Button"
                 android:background="@drawable/button_background"

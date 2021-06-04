@@ -38,6 +38,7 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -83,6 +84,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
 
+                assert user != null;
                 username.setText(user.getUsername());
 
                 if (user.getImageURL().equals("default")) {
@@ -103,6 +105,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Info info = snapshot.getValue(Info.class);
 
+                assert info != null;
                 name.setText(info.getName());
                 email.setText(info.getEmail());
                 phone.setText(info.getPhone());
@@ -143,32 +146,28 @@ public class ProfileActivity extends AppCompatActivity {
         EditText date_edit = dialog.findViewById(R.id.dateOfBird);
         Button confirm = dialog.findViewById(R.id.confirm);
 
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        confirm.setOnClickListener(v -> {
+            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            String edit_user = username_edit.getText().toString();
+            reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("username", edit_user);
+            reference.updateChildren(hashMap);
 
-                firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                String edit_user = username_edit.getText().toString();
-                reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-                HashMap<String, Object> hashMap = new HashMap<>();
-                hashMap.put("username", edit_user);
-                reference.updateChildren(hashMap);
+            String txt_name = name_edit.getText().toString();
+            String txt_date = date_edit.getText().toString();
+            String txt_email = email_edit.getText().toString();
+            String txt_phone = phone_edit.getText().toString();
 
-                String txt_name = name_edit.getText().toString();
-                String txt_date = date_edit.getText().toString();
-                String txt_email = email_edit.getText().toString();
-                String txt_phone = phone_edit.getText().toString();
+            reference = FirebaseDatabase.getInstance().getReference("Info").child(firebaseUser.getUid());
 
-                reference = FirebaseDatabase.getInstance().getReference("Info").child(firebaseUser.getUid());
+            hashMap.put("name", txt_name);
+            hashMap.put("DateOfBird", txt_date);
+            hashMap.put("email", txt_email);
+            hashMap.put("phone", txt_phone);
+            reference.updateChildren(hashMap);
 
-                hashMap.put("name", txt_name);
-                hashMap.put("DateOfBird", txt_date);
-                hashMap.put("email", txt_email);
-                hashMap.put("phone", txt_phone);
-                reference.updateChildren(hashMap);
-
-                dialog.dismiss();
-            }
+            dialog.dismiss();
         });
         dialog.show();
     }
@@ -194,37 +193,29 @@ public class ProfileActivity extends AppCompatActivity {
         if (imageUri !=null) {
             final StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
             uploadTask = fileReference.putFile(imageUri);
-            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()){
-                        throw task.getException();
-                    }
-                    return fileReference.getDownloadUrl();
+            uploadTask.continueWithTask(task -> {
+                if (!task.isSuccessful()){
+                    throw Objects.requireNonNull(task.getException());
                 }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()) {
-                        Uri downloadUri = task.getResult();
-                        String mUri = downloadUri.toString();
+                return fileReference.getDownloadUrl();
+            }).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    assert downloadUri != null;
+                    String mUri = downloadUri.toString();
 
-                        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+                    reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
 
-                        HashMap<String, Object> map = new HashMap<>();
-                        map.put("imageURL",mUri);
-                        reference.updateChildren(map);
-                    } else {
-                        Toast.makeText(ProfileActivity.this, "Failed", Toast.LENGTH_LONG).show();
-                    }
-                    progressDialog.dismiss();
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("imageURL",mUri);
+                    reference.updateChildren(map);
+                } else {
+                    Toast.makeText(ProfileActivity.this, "Failed", Toast.LENGTH_LONG).show();
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                }
+                progressDialog.dismiss();
+            }).addOnFailureListener(e -> {
+                Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             });
         } else {
             Toast.makeText(ProfileActivity.this, "No image selected", Toast.LENGTH_SHORT).show();

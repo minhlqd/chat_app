@@ -22,7 +22,6 @@ public class StartActivity extends AppCompatActivity {
         super.onStart();
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
         if (firebaseUser != null) {
             Intent intent = new Intent(StartActivity.this, MainActivity.class);
             startActivity(intent);
@@ -35,7 +34,6 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-
 
 
         login = (Button) findViewById(R.id.login);

@@ -37,6 +37,7 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -52,7 +53,7 @@ public class ProfileFragment extends Fragment {
     StorageReference storageReference;
     private static final int IMAGE_REQUEST = 1;
     private Uri imageUri;
-    private StorageTask uploadTask;
+    private StorageTask<UploadTask.TaskSnapshot> uploadTask;
 
 
     @Override
@@ -74,12 +75,13 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
 
+                assert user != null;
                 username.setText(user.getUsername());
 
                 if (user.getImageURL().equals("default")) {
                     profile_image.setImageResource(R.mipmap.ic_launcher);
                 } else {
-                    Glide.with(getContext()).load(user.getImageURL()).into(profile_image);
+                    Glide.with(Objects.requireNonNull(getContext())).load(user.getImageURL()).into(profile_image);
                 }
             }
             @Override
