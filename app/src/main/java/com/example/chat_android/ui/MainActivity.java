@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
-
         profile_img = (CircleImageView) findViewById(R.id.profile_image);
         username = (TextView) findViewById(R.id.username);
 
@@ -78,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        ViewPager viewPager = findViewById(R.id.view_pager);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
@@ -90,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);;
         tabLayout.setupWithViewPager(viewPager);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

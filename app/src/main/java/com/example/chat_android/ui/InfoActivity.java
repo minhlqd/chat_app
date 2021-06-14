@@ -17,6 +17,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -36,6 +37,7 @@ import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+@SuppressWarnings("ALL")
 public class InfoActivity extends AppCompatActivity {
 
     EditText fullName;
@@ -70,19 +72,9 @@ public class InfoActivity extends AppCompatActivity {
         profile_image = findViewById(R.id.profile_image);
 
 
-        dateOfBird.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                date();
-            }
-        });
+        dateOfBird.setOnClickListener(v -> date());
 
-//        profile_image.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                openImage();
-//            }
-//        });
+        profile_image.setOnClickListener(v -> openImage());
 
        btn_confirm.setOnClickListener(v -> {
            String txt_name = fullName.getText().toString();
@@ -115,10 +107,14 @@ public class InfoActivity extends AppCompatActivity {
         int year = calendar.get(Calendar.YEAR);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(InfoActivity.this, new DatePickerDialog.OnDateSetListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                dateOfBird.setText(dayOfMonth + "/" + month + "/" + year);
             }
         }, day, month, year);
+
+        datePickerDialog.show();
     }
 
     private void openImage() {

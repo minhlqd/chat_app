@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Objects;
 
+@SuppressWarnings("ALL")
 public class RegisterActivity extends AppCompatActivity {
 
     TextInputEditText username, email, password;
@@ -38,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Register");
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.register);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         login = (TextView) findViewById(R.id.login);

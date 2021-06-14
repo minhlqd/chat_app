@@ -20,4 +20,5 @@
     <string name="date_of_bird">Date of bird</string>
     <string name="confirm">Confirm</string>
     <string name="phone">Phone</string>
+    <string name="reset_password">Reset Password</string>
 </resources>

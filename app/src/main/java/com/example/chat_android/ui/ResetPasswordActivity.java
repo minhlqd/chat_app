@@ -30,7 +30,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Reset Password");
+        getSupportActionBar().setTitle(R.string.reset_password);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         send_email = findViewById(R.id.send_email);
@@ -42,9 +42,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String email = send_email.getText().toString();
-
                 if (email.equals("")) {
-                    Toast.makeText(ResetPasswordActivity.this, "All fileds required", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ResetPasswordActivity.this, "All fields required", Toast.LENGTH_SHORT).show();
                 } else {
                     firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
