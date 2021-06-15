@@ -21,4 +21,7 @@
     <string name="confirm">Confirm</string>
     <string name="phone">Phone</string>
     <string name="reset_password">Reset Password</string>
+    <string name="type_a_message">Type a message...</string>
+    <string name="information">Information</string>
+    <string name="profile">Profile</string>
 </resources>

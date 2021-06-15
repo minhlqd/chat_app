@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MessageActivity">
+    tools:context=".Activities.MessageActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/bar_layout"
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/username"
                 android:layout_marginLeft="25dp"
-                android:text="username"
+                android:text="@string/username"
                 android:textColor="#FFF"
                 android:textStyle="bold"
                 android:layout_marginStart="25dp" />
@@ -58,11 +58,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/text_send"
             android:background="@android:color/transparent"
-            android:hint="Type a message..."
+            android:hint="@string/type_a_message"
             android:layout_toLeftOf="@+id/btn_send"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/btn_send"
-            android:autofillHints="" />
+            android:autofillHints=""
+            android:inputType="text" />
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -70,7 +71,7 @@
             android:src="@drawable/ic_action_name"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/todo" />
     </RelativeLayout>
 
 </RelativeLayout>

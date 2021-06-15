@@ -1,4 +1,4 @@
-package com.example.chat_android.adapter;
+package com.example.chat_android.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.chat_android.model.Chat;
+import com.example.chat_android.Models.Chat;
 import com.example.chat_android.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

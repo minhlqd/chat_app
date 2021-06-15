@@ -1,4 +1,4 @@
-package com.example.chat_android.fragments;
+package com.example.chat_android.Fragments;
 
 import android.os.Bundle;
 
@@ -14,8 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.example.chat_android.adapter.UserAdapter;
-import com.example.chat_android.model.User;
+import com.example.chat_android.Adapter.UserAdapter;
+import com.example.chat_android.Models.User;
 import com.example.chat_android.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,7 +45,7 @@ public class UsersFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_users, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -118,7 +118,6 @@ public class UsersFragment extends Fragment {
                         User user = dataSnapshot.getValue(User.class);
 
                         assert user != null;
-                        assert firebaseUser != null;
 
                         if (!user.getId().equals(firebaseUser.getUid())) {
                             mUsers.add(user);

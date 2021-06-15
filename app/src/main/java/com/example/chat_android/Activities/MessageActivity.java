@@ -1,4 +1,4 @@
-package com.example.chat_android.ui;
+package com.example.chat_android.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,9 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.chat_android.adapter.MessageAdapter;
-import com.example.chat_android.model.Chat;
-import com.example.chat_android.model.User;
+import com.example.chat_android.Adapter.MessageAdapter;
+import com.example.chat_android.Models.Chat;
+import com.example.chat_android.Models.User;
 import com.example.chat_android.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,6 +28,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +37,8 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageActivity extends AppCompatActivity {
+
+    String user_id;
 
     CircleImageView profile_image;
     TextView username;
@@ -80,7 +84,7 @@ public class MessageActivity extends AppCompatActivity {
         text_send = findViewById(R.id.text_send);
 
         intent = getIntent();
-        String user_id = intent.getStringExtra("user_id");
+        user_id = intent.getStringExtra("user_id");
 
         username.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +152,25 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("message", message);
 
         reference.child("Chats").push().setValue(hashMap);
+
+        DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("ChatList")
+                .child(firebaseUser.getUid())
+                .child(user_id);
+
+
+        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                if (!snapshot.exists()) {
+                    chatRef.child("id").setValue(user_id);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void readMessage(String my_id, String user_id, String image_url) {

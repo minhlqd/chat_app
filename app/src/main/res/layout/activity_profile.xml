@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ProfileActivity">
+    tools:context=".Activities.ProfileActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -18,7 +17,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Profile"
+                android:text="@string/profile"
                 android:textStyle="bold"
                 android:textColor="@color/background"/>
 
@@ -68,36 +67,36 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal"
-            android:layout_below="@+id/toolbar"
-            android:padding="16dp">
+            android:padding="16dp"
+            tools:ignore="UselessParent">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fullName"
                 android:layout_marginTop="10dp"
-                android:hint="Full Name"/>
+                android:hint="@string/full_name"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/dateOfBird"
                 android:layout_marginTop="10dp"
-                android:hint="Date of bird"/>
+                android:hint="@string/date_of_bird"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/email"
                 android:layout_marginTop="10dp"
-                android:hint="Email"/>
+                android:hint="@string/email"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/phone_number"
                 android:layout_marginTop="10dp"
-                android:hint="Phone"/>
+                android:hint="@string/phone"/>
 
         </LinearLayout>
 

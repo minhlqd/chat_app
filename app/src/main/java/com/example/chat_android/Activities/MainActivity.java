@@ -1,4 +1,4 @@
-package com.example.chat_android.ui;
+package com.example.chat_android.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,10 +16,11 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.chat_android.fragments.ChatsFragment;
-import com.example.chat_android.fragments.UsersFragment;
-import com.example.chat_android.model.User;
+import com.example.chat_android.Fragments.ChatsFragment;
+import com.example.chat_android.Fragments.UsersFragment;
+import com.example.chat_android.Models.User;
 import com.example.chat_android.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,6 +35,7 @@ import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+@SuppressWarnings("ALL")
 public class MainActivity extends AppCompatActivity {
 
     CircleImageView profile_img;
@@ -51,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
-        profile_img = (CircleImageView) findViewById(R.id.profile_image);
-        username = (TextView) findViewById(R.id.username);
+        profile_img = findViewById(R.id.profile_image);
+        username = findViewById(R.id.username);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
@@ -79,14 +81,17 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager viewPager = findViewById(R.id.view_pager);
+        
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom);
+//        bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
         viewPagerAdapter.addFragment(new UsersFragment(), "Users");
         //viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
-
-        viewPager.setAdapter(viewPagerAdapter);;
+        
+        viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -95,6 +100,15 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
+//    private boolean loadFragment(Fragment fragment) {
+//        if (fragment != null) {
+//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.replace(R.id.fragmentMain, fragment);
+//            ft.commit();
+//            return true;
+//        }
+//        return false;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -111,6 +125,20 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+//        Fragment fragment = null;
+//        switch (item.getItemId()) {
+//            case R.id.user:
+//                fragment = new UsersFragment();
+//                break;
+//            case R.id.chat:
+//                fragment = new ChatsFragment();
+//                break;
+//        }
+//        return loadFragment(fragment);
+//    }
 
     class ViewPagerAdapter extends FragmentPagerAdapter{
 

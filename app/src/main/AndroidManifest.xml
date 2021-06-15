@@ -16,27 +16,43 @@
         android:roundIcon="@drawable/chat"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp">
-        <activity android:name=".ui.EditProfileActivity" />
-        <activity android:name=".ui.InfoActivity" />
+        <activity android:name=".Activities.EditProfileActivity" />
+        <activity android:name=".Activities.InfoActivity" />
         <activity
-            android:name=".ui.ResetPasswordActivity"
-            android:parentActivityName=".ui.LoginActivity" />
-        <activity android:name=".ui.ProfileActivity" />
-        <activity android:name=".ui.MessageActivity" />
+            android:name=".Activities.ResetPasswordActivity"
+            android:parentActivityName=".Activities.LoginActivity" />
+        <activity android:name=".Activities.ProfileActivity" />
+        <activity android:name=".Activities.MessageActivity" />
         <activity
-            android:name=".ui.LoginActivity"
-            android:parentActivityName=".ui.StartActivity" />
-        <activity android:name=".ui.MainActivity" />
+            android:name=".Activities.LoginActivity"
+            android:parentActivityName=".Activities.StartActivity" />
+        <activity android:name=".Activities.MainActivity" />
         <activity
-            android:name=".ui.RegisterActivity"
-            android:parentActivityName=".ui.StartActivity" />
-        <activity android:name=".ui.StartActivity">
+            android:name=".Activities.RegisterActivity"
+            android:parentActivityName=".Activities.StartActivity" />
+        <activity android:name=".Activities.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+<!--        <service android:name=".Notifications.MyFirebaseIdService"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>-->
+<!--            </intent-filter>-->
+<!--        </service>-->
+
+<!--        <service android:name=".Notifications.MyFirebaseMessaging"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.MESSAGING_EVENT"/>-->
+<!--            </intent-filter>-->
+<!--        </service>-->
 
     </application>
 

@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.StartActivity">
+    tools:context=".Activities.StartActivity">
     <LinearLayout
         android:layout_marginBottom="60dp"
         android:layout_width="match_parent"

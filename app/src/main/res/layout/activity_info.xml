@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.InfoActivity">
+    tools:context=".Activities.InfoActivity">
 
     <include
         android:id="@+id/toolbar"
@@ -21,15 +21,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Information"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:text="@string/information"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/profile_image"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:src="@drawable/ic_name"/>
 
@@ -39,15 +39,16 @@
             android:id="@+id/fullName"
             android:layout_marginTop="10dp"
             app:met_floatingLabel="normal"
-            android:hint="Full Name"/>
+            android:hint="@string/full_name"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/dateOfBird"
+            android:inputType="datetime"
             android:layout_marginTop="10dp"
             app:met_floatingLabel="normal"
-            android:hint="Date of bird"/>
+            android:hint="@string/date_of_bird"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
@@ -55,7 +56,7 @@
             android:id="@+id/email"
             android:layout_marginTop="10dp"
             app:met_floatingLabel="normal"
-            android:hint="Email"/>
+            android:hint="@string/email"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
@@ -63,14 +64,16 @@
             android:id="@+id/phone_number"
             android:layout_marginTop="10dp"
             app:met_floatingLabel="normal"
-            android:hint="Phone"/>
+            android:hint="@string/phone"
+            android:inputType="number"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="confirm"
+            android:text="@string/confirm"
             android:id="@+id/btn_confirm"
-            android:background="#309AEF"
+            android:textSize="20sp"
+            android:background="@drawable/button_background"
             android:layout_marginTop="10dp"
             android:textColor="#FFF"/>
 

@@ -1,4 +1,4 @@
-package com.example.chat_android.fragments;
+package com.example.chat_android.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.chat_android.model.User;
+import com.example.chat_android.Models.User;
 import com.example.chat_android.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;

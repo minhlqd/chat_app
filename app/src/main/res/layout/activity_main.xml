@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.MainActivity">
+    tools:context=".Activities.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -28,12 +28,10 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/username"
                 android:layout_marginLeft="25dp"
-                android:text="username"
+                android:text="@string/username"
                 android:textColor="#FFF"
-                android:textStyle="bold"/>
-
-
-
+                android:textStyle="bold"
+                android:layout_marginStart="25dp" />
         </androidx.appcompat.widget.Toolbar>
         
         <com.google.android.material.tabs.TabLayout
@@ -46,6 +44,21 @@
             app:tabTextColor="#fff"/>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/fragmentMain"-->
+<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"/>-->
+
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/bottom"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="#309AEF"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        app:menu="@menu/bottom_menu"/>-->
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"

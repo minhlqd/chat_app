@@ -1,4 +1,4 @@
-package com.example.chat_android.notification;
+package com.example.chat_android.Notifications;
 
 public class Data {
     private String user;

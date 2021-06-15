@@ -1,4 +1,4 @@
-package com.example.chat_android.adapter;
+package com.example.chat_android.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.chat_android.ui.MessageActivity;
-import com.example.chat_android.model.User;
+import com.example.chat_android.Activities.MessageActivity;
+import com.example.chat_android.Models.User;
 import com.example.chat_android.R;
 
 import java.util.List;

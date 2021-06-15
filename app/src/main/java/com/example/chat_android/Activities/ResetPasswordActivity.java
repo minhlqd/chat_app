@@ -1,4 +1,4 @@
-package com.example.chat_android.ui;
+package com.example.chat_android.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
