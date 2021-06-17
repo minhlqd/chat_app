@@ -121,7 +121,9 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();;
                 startActivity(new Intent(MainActivity.this, StartActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 return true;
-
+            case R.id.reset:
+                startActivity(new Intent(MainActivity.this, ResetPasswordActivity.class));
+                return true;
         }
         return false;
     }
@@ -194,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        status("offline");
     }
 
     @Override

@@ -3,9 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activities.ProfileActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/bar_layout"/>
+
     <androidx.cardview.widget.CardView
+        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/card_view">
@@ -14,12 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/profile"
-                android:textStyle="bold"
-                android:textColor="@color/background"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"

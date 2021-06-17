@@ -54,6 +54,7 @@
 <!--            </intent-filter>-->
 <!--        </service>-->
 
+<!--        <receiver android:name=".Notifications.MyFirebaseIdService" />-->
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
@@ -19,6 +20,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -65,23 +67,33 @@ public class InfoActivity extends AppCompatActivity {
         btn_confirm = findViewById(R.id.btn_confirm);
         profile_image = findViewById(R.id.profile_image);
 
+        storageReference = FirebaseStorage.getInstance().getReference("Images");
+
+        Intent i = getIntent();
+
+        email.setText(i.getStringExtra("email").toString());
 
         dateOfBird.setOnClickListener(v -> date());
 
-        profile_image.setOnClickListener(v -> openImage());
+        profile_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openImage();
+            }
+        });
 
-       btn_confirm.setOnClickListener(v -> {
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Info").child(firebaseUser.getUid());
+
+        btn_confirm.setOnClickListener(v -> {
            String txt_name = fullName.getText().toString();
            String txt_date = dateOfBird.getText().toString();
            String txt_email = email.getText().toString();
            String txt_phone = phone.getText().toString();
 
-           firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-           reference = FirebaseDatabase.getInstance().getReference("Info").child(firebaseUser.getUid());
-
            HashMap<String, Object> hashMap = new HashMap<>();
            hashMap.put("name", txt_name);
-           hashMap.put("DateOfBird", txt_date);
+           hashMap.put("dateOfBird", txt_date);
            hashMap.put("email", txt_email);
            hashMap.put("phone", txt_phone);
 
@@ -90,7 +102,7 @@ public class InfoActivity extends AppCompatActivity {
            Intent intent = new Intent(InfoActivity.this, MainActivity.class);
            startActivity(intent);
            finish();
-       });
+        });
 
     }
 
@@ -124,6 +136,7 @@ public class InfoActivity extends AppCompatActivity {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
+
     private void uploadImage(){
         final ProgressDialog progressDialog = new ProgressDialog(InfoActivity.this);
         progressDialog.setMessage("Uploading...");
@@ -142,11 +155,13 @@ public class InfoActivity extends AppCompatActivity {
                     Uri downloadUri = task.getResult();
                     String mUri = downloadUri.toString();
 
-                    reference = FirebaseDatabase.getInstance().getReference("Info").child(firebaseUser.getUid());
+                    reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
 
                     HashMap<String, Object> map = new HashMap<>();
                     map.put("imageURL",mUri);
+
                     reference.updateChildren(map);
+
                 } else {
                     Toast.makeText(InfoActivity.this, "Failed", Toast.LENGTH_LONG).show();
                 }

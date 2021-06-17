@@ -24,10 +24,20 @@
             android:id="@+id/show_message"
             android:padding="8dp"
             android:textSize="18sp"
-            android:text="hello"
+            android:text="@string/hello"
             android:textColor="#fff"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/seen"
+            android:text="@string/seen"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/show_message"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
 </RelativeLayout>

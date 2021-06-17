@@ -90,6 +90,8 @@ public class RegisterActivity extends AppCompatActivity {
                             if (task1.isSuccessful()){
                                 Log.d("fix", email);
                                 Intent intent = new Intent(RegisterActivity.this,InfoActivity.class);
+
+                                intent.putExtra("email", email);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                                 Toast.makeText(RegisterActivity.this, "Register successfully", Toast.LENGTH_LONG ).show();

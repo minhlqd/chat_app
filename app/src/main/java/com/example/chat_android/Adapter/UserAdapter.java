@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,7 +43,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         User user = users.get(position);
         holder.username.setText(user.getUsername());
         if (user.getImageURL().equals("default")) {
-            holder.profile_image.setImageResource(R.mipmap.ic_launcher);
+            holder.profile_image.setImageResource(R.drawable.ic_name);
         } else {
             Glide.with(context).load(user.getImageURL()).into(holder.profile_image);
         }
@@ -52,23 +53,20 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 holder.img_on.setVisibility(View.VISIBLE);
                 holder.img_off.setVisibility(View.GONE);
             } else {
-                holder.img_on.setVisibility(View.VISIBLE);
-                holder.img_off.setVisibility(View.GONE);
+                holder.img_off.setVisibility(View.VISIBLE);
+                holder.img_on.setVisibility(View.GONE);
             }
         } else {
             holder.img_on.setVisibility(View.GONE);
-            holder.img_off.setVisibility(View.GONE);
+            holder.img_off.setVisibility(View.VISIBLE);
         }
 
 
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, MessageActivity.class);
-                intent.putExtra("user_id", user.getId());
-                context.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, MessageActivity.class);
+            intent.putExtra("user_id", user.getId());
+            context.startActivity(intent);
         });
 
     }
@@ -85,17 +83,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         public TextView username;
         public ImageView profile_image;
-        public ImageView img_on;
-        public ImageView img_off;
+        public Button img_on;
+        public Button img_off;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            username = (TextView) itemView.findViewById(R.id.username);
-            profile_image = (ImageView) itemView.findViewById(R.id.profile_image);
-            img_on = (ImageView) itemView.findViewById(R.id.img_on);
-            img_off = (ImageView) itemView.findViewById(R.id.img_off);
+            username = itemView.findViewById(R.id.username);
+            profile_image = itemView.findViewById(R.id.profile_image);
+            img_on = itemView.findViewById(R.id.img_on);
+            img_off = itemView.findViewById(R.id.img_off);
         }
     }
 }

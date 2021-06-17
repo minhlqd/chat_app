@@ -5,13 +5,13 @@ public class Info {
     private String name;
     private String email;
     private String phone;
-    private String date;
+    private String dateOfBird;
 
     public Info(String name, String email, String phone, String date) {
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.date = date;
+        this.dateOfBird = date;
     }
 
     public Info() {
@@ -43,10 +43,10 @@ public class Info {
     }
 
     public String getDate() {
-        return date;
+        return dateOfBird;
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.dateOfBird = date;
     }
 }

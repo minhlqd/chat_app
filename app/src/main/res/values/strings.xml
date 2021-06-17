@@ -24,4 +24,6 @@
     <string name="type_a_message">Type a message...</string>
     <string name="information">Information</string>
     <string name="profile">Profile</string>
+    <string name="seen">seen</string>
+    <string name="logout">Logout</string>
 </resources>

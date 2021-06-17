@@ -3,6 +3,7 @@ package com.example.chat_android.Activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -10,6 +11,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -38,6 +40,7 @@ import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+@SuppressWarnings("ALL")
 public class ProfileActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
@@ -62,6 +65,11 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.profile);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         profile_image = findViewById(R.id.profile_image);
         username = findViewById(R.id.username);
@@ -100,12 +108,13 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Info info = snapshot.getValue(Info.class);
-
-                assert info != null;
-                name.setText(info.getName());
-                email.setText(info.getEmail());
-                phone.setText(info.getPhone());
-                date.setText(info.getDate());
+                if (info != null) {
+                    name.setText(info.getName());
+                    email.setText(info.getEmail());
+                    phone.setText(info.getPhone());
+                    Log.d("aaa", info.getPhone().toString());
+                    date.setText(info.getDate());
+                }
 
             }
             @Override
@@ -148,6 +157,7 @@ public class ProfileActivity extends AppCompatActivity {
             reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("username", edit_user);
+            hashMap.put("search", edit_user.toLowerCase().toString());
             reference.updateChildren(hashMap);
 
             String txt_name = name_edit.getText().toString();
@@ -156,12 +166,12 @@ public class ProfileActivity extends AppCompatActivity {
             String txt_phone = phone_edit.getText().toString();
 
             reference = FirebaseDatabase.getInstance().getReference("Info").child(firebaseUser.getUid());
-
-            hashMap.put("name", txt_name);
-            hashMap.put("DateOfBird", txt_date);
-            hashMap.put("email", txt_email);
-            hashMap.put("phone", txt_phone);
-            reference.updateChildren(hashMap);
+            HashMap<String, Object> hashMapInfo = new HashMap<>();
+            hashMapInfo.put("name", txt_name);
+            hashMapInfo.put("dateOfBird", txt_date);
+            hashMapInfo.put("email", txt_email);
+            hashMapInfo.put("phone", txt_phone);
+            reference.updateChildren(hashMapInfo);
 
             dialog.dismiss();
         });

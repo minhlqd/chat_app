@@ -33,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Objects;
 
+@SuppressWarnings("ALL")
 public class LoginActivity extends AppCompatActivity {
 
     TextInputEditText email, password;
@@ -60,10 +61,10 @@ public class LoginActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        password = (TextInputEditText) findViewById(R.id.password);
-        email = (TextInputEditText) findViewById(R.id.email);
-        btn_login = (Button) findViewById(R.id.btn_login);
-        btn_register = (Button) findViewById(R.id.btn_register);
+        password = findViewById(R.id.password);
+        email = findViewById(R.id.email);
+        btn_login = findViewById(R.id.btn_login);
+        btn_register = findViewById(R.id.btn_register);
         forgot_password = findViewById(R.id.forgot_password);
         signInButton = findViewById(R.id.google_login);
 
@@ -74,12 +75,7 @@ public class LoginActivity extends AppCompatActivity {
 
         googleSignInClient = GoogleSignIn.getClient(LoginActivity.this,googleSignInOptions);
 
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
+        signInButton.setOnClickListener(v -> signIn());
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,43 +84,34 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        forgot_password.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
-                startActivity(intent);
-            }
+        forgot_password.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+            startActivity(intent);
         });
 
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String txt_email = Objects.requireNonNull(email.getText()).toString();
-                String txt_password = Objects.requireNonNull(password.getText()).toString();
+        btn_login.setOnClickListener(v -> {
+            String txt_email = Objects.requireNonNull(email.getText()).toString();
+            String txt_password = Objects.requireNonNull(password.getText()).toString();
 
-                if (TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
-                    if (TextUtils.isEmpty(txt_password)){
-                        password.setError("Password is required");
-                    }
-                    if (TextUtils.isEmpty(txt_email)) {
-                        email.setError("username is required");
-                    }
-                } else {
-                    auth.signInWithEmailAndPassword(txt_email, txt_password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                        intent.addFlags((Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        email.setError("Email or password is incorrect");
-                                    }
-                                }
-                            });
+            if (TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
+                if (TextUtils.isEmpty(txt_password)){
+                    password.setError("Password is required");
                 }
+                if (TextUtils.isEmpty(txt_email)) {
+                    email.setError("username is required");
+                }
+            } else {
+                auth.signInWithEmailAndPassword(txt_email, txt_password)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.addFlags((Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                email.setError("Email or password is incorrect");
+                            }
+                        });
             }
         });
     }
@@ -174,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
                             hashMap.put("id", user_id);
                             hashMap.put("username", user.getDisplayName());
                             hashMap.put("imageURL", "default");
-                            hashMap.put("status", "offline");
+                            hashMap.put("status", "online");
                             hashMap.put("search", user.getDisplayName().toLowerCase());
                             reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
