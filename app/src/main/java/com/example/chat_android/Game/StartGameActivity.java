@@ -1,5 +1,6 @@
 package com.example.chat_android.Game;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 
@@ -12,6 +13,9 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.chat_android.Activities.MainActivity;
+import com.example.chat_android.Activities.StartActivity;
 import com.example.chat_android.R;
 
 public class StartGameActivity extends AppCompatActivity {
@@ -49,40 +53,45 @@ public class StartGameActivity extends AppCompatActivity {
         });
 
         more.setOnClickListener(new View.OnClickListener() {
+            private boolean onMenuItemClick(MenuItem menuItem) {
+
+                Intent intent, chooser;
+                int id = menuItem.getItemId();
+                switch (id) {
+                    case R.id.feedback: {
+                        intent = new Intent(Intent.ACTION_SEND);
+                        intent.setData(Uri.parse("mailto:"));
+                        String[] to = {"maiminhlqd0@gmail.com"}; // my email
+                        intent.putExtra(Intent.EXTRA_EMAIL, to);
+                        intent.setType("message/rfc822");
+                        chooser = Intent.createChooser(intent, "Send Feedback");
+                        startActivity(chooser);
+                    }
+                    case R.id.message: {
+                        intent = new Intent(StartGameActivity.this, StartActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }
+////                    case R.id.share: {
+////                        intent = new Intent(Intent.ACTION_SEND);
+////                        intent.setType("text/plain");
+////                        intent.putExtra(Intent.EXTRA_SUBJECT, "Vermiculi");
+////                        String sAux = "\n Let me recommend you this Game \n\n";
+////                        sAux = sAux + "https://www.facebook.com/uet0903 \n\n";
+////                        intent.putExtra(Intent.EXTRA_TEXT, sAux);
+////                        startActivity(Intent.createChooser(intent, "Share"));
+//                    }
+                }
+                return true;
+            }
+
+            @SuppressLint({"IntentReset", "NonConstantResourceId"})
             @Override
             public void onClick(View view) {
                 final PopupMenu popupMenu = new PopupMenu(StartGameActivity.this, more);
                 popupMenu.getMenuInflater().inflate(R.menu.pop_menu, popupMenu.getMenu());
 
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-
-                        Intent intent, chooser;
-                        int id = menuItem.getItemId();
-                            if (id == R.id.feedback){
-                                intent = new Intent(Intent.ACTION_SEND);
-                                intent.setData(Uri.parse("mailto:"));
-                                String[] to = {"pikapps10@gmail.com"}; // my email
-                                intent.putExtra(Intent.EXTRA_EMAIL, to);
-                                intent.setType("message/rfc822");
-                                chooser = Intent.createChooser(intent, "Send Feedback");
-                                startActivity(chooser);
-                            }
-
-                            if (id == R.id.share){
-                                intent = new Intent(Intent.ACTION_SEND);
-                                intent.setType("text/plain");
-                                intent.putExtra(Intent.EXTRA_SUBJECT, "Vermiculi");
-                                String sAux = "\n Let me recommend you this Game \n\n";
-                                sAux = sAux+ "https://play.google.com/store/apps/details?id=com.angrymonkey.angrymonkey \n\n";
-                                intent.putExtra(Intent.EXTRA_TEXT, sAux);
-                                startActivity(Intent.createChooser(intent, "Share"));
-                            }
-
-                        return true;
-                    }
-                });
+                popupMenu.setOnMenuItemClickListener(this::onMenuItemClick);
                 popupMenu.show();
             }
         });

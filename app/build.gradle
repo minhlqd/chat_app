@@ -79,6 +79,11 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.google.firebase:firebase-messaging:22.0.0'
 
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:27.1.0'
+
     implementation 'com.github.skydoves:medal:1.0.1'
 
 }

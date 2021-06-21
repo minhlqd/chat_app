@@ -17,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.chat_android.R;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -67,7 +69,7 @@ public class MainGameActivity extends AppCompatActivity {
     private int enemy2Speed;
     private int score = 0;
 
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
     private Timer timer = new Timer();
 
 
@@ -78,6 +80,9 @@ public class MainGameActivity extends AppCompatActivity {
 
     int action;
     int coins= 0;
+
+    FirebaseUser firebaseUser;
+    DatabaseReference reference;
 
 
     @Override
@@ -94,15 +99,15 @@ public class MainGameActivity extends AppCompatActivity {
 
         sound = new SoundEffects(this);
 
-        scoreLabel = (TextView) findViewById(R.id.score_lb);
-        startLabel = (TextView) findViewById(R.id.startLb);
-        pauseLb = (ImageButton) findViewById(R.id.pause_lb);
-        player = (ImageView) findViewById(R.id.player);
-        food = (ImageView) findViewById(R.id.food);
-        diamond = (ImageView) findViewById(R.id.diamond);
-        enemy1 = (ImageView) findViewById(R.id.enemy1);
-        enemy2 = (ImageView) findViewById(R.id.enemy2);
-        tv_coins =(TextView) findViewById(R.id.tv_coins);
+        scoreLabel = findViewById(R.id.score_lb);
+        startLabel = findViewById(R.id.startLb);
+        pauseLb = findViewById(R.id.pause_lb);
+        player = findViewById(R.id.player);
+        food = findViewById(R.id.food);
+        diamond = findViewById(R.id.diamond);
+        enemy1 = findViewById(R.id.enemy1);
+        enemy2 = findViewById(R.id.enemy2);
+        tv_coins = findViewById(R.id.tv_coins);
 
         player.setImageResource(getResources().getIdentifier("player"+action+"a", "drawable", getPackageName()));
 

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background"
     android:layout_height="match_parent"
     tools:context=".Game.MainGameActivity">
 
@@ -64,6 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tap to start"
+            android:fontFamily="@font/montserrat_bold"
             android:textSize="30sp"
             android:id="@+id/startLb"
             android:layout_marginTop="50sp"
