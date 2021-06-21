@@ -45,4 +45,32 @@
         android:layout_marginLeft="-10dp"
         android:layout_marginStart="-10dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username"
+        android:layout_toRightOf="@id/profile_image"
+        android:layout_marginTop="5dp"
+        android:paddingTop="5dp"
+        android:id="@+id/last_user"
+        android:textColor="@color/black"
+        android:layout_marginLeft="20dp"
+        android:maxLines="1"
+        android:text="@string/you"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/profile_image" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username"
+        android:layout_toRightOf="@id/last_user"
+        android:layout_marginTop="5dp"
+        android:paddingTop="5dp"
+        android:id="@+id/last_msg"
+        android:textColor="@color/black"
+        android:layout_marginLeft="20dp"
+        android:maxLines="1"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/last_user" />
+
 </RelativeLayout>

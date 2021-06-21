@@ -27,7 +27,6 @@ public class StartActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
     }
 
     @Override
@@ -36,23 +35,17 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
 
-        login = (Button) findViewById(R.id.login);
-        register = (Button) findViewById(R.id.register);
+        login = findViewById(R.id.login);
+        register = findViewById(R.id.register);
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(StartActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
+        login.setOnClickListener(v -> {
+            Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+            startActivity(intent);
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(StartActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
+        register.setOnClickListener(v -> {
+            Intent intent = new Intent(StartActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
 
     }

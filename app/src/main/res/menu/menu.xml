@@ -4,10 +4,14 @@
     <item android:title="@string/profile"
         android:id="@+id/profile"
         app:showAsAction="never"/>
+    <item app:showAsAction="never"
+        android:title="@string/game"
+        android:id="@+id/game"/>
     <item android:id="@+id/reset"
         android:title="@string/reset_password"
         app:showAsAction="never"/>
     <item android:title="@string/logout"
         android:id="@+id/logout"
         app:showAsAction="never"/>
+
 </menu>

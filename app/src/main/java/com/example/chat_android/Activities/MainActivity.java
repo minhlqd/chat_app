@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.chat_android.Fragments.ChatsFragment;
 import com.example.chat_android.Fragments.UsersFragment;
+import com.example.chat_android.Game.MainGameActivity;
+import com.example.chat_android.Game.SplashScreenActivity;
 import com.example.chat_android.Models.User;
 import com.example.chat_android.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -68,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
                     profile_img.setImageResource(R.drawable.ic_name);
 
                 } else {
-                    Glide.with(MainActivity.this).load(user.getImageURL()).into(profile_img);
+                    profile_img.setImageResource(R.drawable.ic_name);
+//                   Glide.with(MainActivity.this).load(user.getImageURL()).into(profile_img);
                 }
 
             }
@@ -116,6 +119,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.profile:
                 Intent intent_profile = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(intent_profile);
+                return true;
+            case R.id.game:
+                Intent intent_game = new Intent(MainActivity.this, SplashScreenActivity.class);
+                startActivity(intent_game);
                 return true;
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();;
@@ -196,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        status("offline");
     }
 
     @Override

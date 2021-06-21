@@ -50,6 +50,7 @@ public class UsersFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mUsers = new ArrayList<>();
+
         readUser();
 
 
@@ -57,13 +58,11 @@ public class UsersFragment extends Fragment {
         search_user.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Search_User(s.toString().toLowerCase());
-
             }
 
             @Override
@@ -75,6 +74,7 @@ public class UsersFragment extends Fragment {
         return view;
     }
 
+    // tìm kiếm username
     private void Search_User(String toString) {
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -104,6 +104,7 @@ public class UsersFragment extends Fragment {
         });
     }
 
+    // hiện username
     private void readUser() {
 
         FirebaseAuth firebaseUser = FirebaseAuth.getInstance();
@@ -116,7 +117,6 @@ public class UsersFragment extends Fragment {
                     mUsers.clear();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         User user = dataSnapshot.getValue(User.class);
-
                         assert user != null;
 
                         if (!user.getId().equals(firebaseUser.getUid())) {

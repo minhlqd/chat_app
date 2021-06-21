@@ -26,4 +26,13 @@
     <string name="profile">Profile</string>
     <string name="seen">seen</string>
     <string name="logout">Logout</string>
+    <string name="b_n">bạn:</string>
+    <string name="you">You:</string>
+    <string name="your_email">Your email</string>
+    <string name="reset">Reset</string>
+    <string name="cancel">Cancel</string>
+    <string name="game">Game</string>
+    <string name="shop">Shop</string>
+    <string name="_100">100</string>
+    <string name="locked">LOCKED</string>
 </resources>

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="15dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <include android:id="@+id/toolbar"
-        layout="@layout/bar_layout"/>
+<!--    <include android:id="@+id/toolbar"-->
+<!--        layout="@layout/bar_layout"/>-->
 
     <ScrollView
         android:layout_marginTop="10dp"
@@ -72,13 +73,41 @@
                     android:hint="@string/phone"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:layout_marginTop="10dp"
-                android:background="@drawable/button_background"
-                android:text="@string/confirm"
-                android:id="@+id/confirm"
-                style="@style/Button"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+                <Button
+                    android:padding="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button_background"
+                    android:text="@string/confirm"
+                    android:id="@+id/confirm"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    style="@style/Button"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="30dp" />
+                <Button
+                    android:padding="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button_background"
+                    android:text="@string/cancel"
+                    android:id="@+id/cancel"
+                    style="@style/Button"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginEnd="30dp" />
+
+
+            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>

@@ -5,16 +5,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +38,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -94,7 +100,8 @@ public class ProfileActivity extends AppCompatActivity {
                 if (user.getImageURL().equals("default")) {
                     profile_image.setImageResource(R.drawable.ic_name);
                 } else {
-                    Glide.with(ProfileActivity.this).load(user.getImageURL()).into(profile_image);
+                    profile_image.setImageResource(R.drawable.ic_name);
+                    //Glide.with(ProfileActivity.this).load(user.getImageURL()).into(profile_image);
                 }
             }
             @Override
@@ -150,7 +157,49 @@ public class ProfileActivity extends AppCompatActivity {
         EditText phone_edit = dialog.findViewById(R.id.phone_number);
         EditText date_edit = dialog.findViewById(R.id.dateOfBird);
         Button confirm = dialog.findViewById(R.id.confirm);
+        Button cancel = dialog.findViewById(R.id.cancel);
 
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+
+                assert user != null;
+                username_edit.setText(user.getUsername());
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        reference =  FirebaseDatabase.getInstance().getReference("Info").child(firebaseUser.getUid());
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                Info info =  snapshot.getValue(Info.class);
+
+                name_edit.setText(info.getName());
+                email_edit.setText(info.getEmail());
+                phone_edit.setText(info.getPhone());
+                date_edit.setText(info.getDate());
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+
+        cancel.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
         confirm.setOnClickListener(v -> {
             firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             String edit_user = username_edit.getText().toString();
@@ -159,6 +208,21 @@ public class ProfileActivity extends AppCompatActivity {
             hashMap.put("username", edit_user);
             hashMap.put("search", edit_user.toLowerCase().toString());
             reference.updateChildren(hashMap);
+
+            date_edit.setOnClickListener(v1 -> {
+                Calendar calendar = Calendar.getInstance();
+                int day = calendar.get(Calendar.DATE);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        calendar.set(year,month,dayOfMonth);
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd//MM//YYYY");
+                        date_edit.setText(simpleDateFormat.format(calendar.getTime()));
+                    }
+                },year,month,day);
+            });
 
             String txt_name = name_edit.getText().toString();
             String txt_date = date_edit.getText().toString();

@@ -18,6 +18,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -116,7 +117,9 @@ public class InfoActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                dateOfBird.setText(dayOfMonth + "/" + month + "/" + year);
+                calendar.set(year,month,dayOfMonth);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/YYYY");
+                dateOfBird.setText(simpleDateFormat.format(calendar.getTime()));
             }
         }, day, month, year);
 

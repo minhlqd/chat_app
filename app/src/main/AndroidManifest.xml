@@ -38,6 +38,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".Game.SplashScreenActivity"/>
+        <activity android:name=".Game.StartGameActivity"/>
+        <activity android:name=".Game.MainGameActivity"/>
+        <activity android:name=".Game.ResultActivity"/>
+        <activity android:name=".Game.ShopActivity"/>
+
 <!--        <service android:name=".Notifications.MyFirebaseIdService"-->
 <!--            android:enabled="true"-->
 <!--            android:exported="true">-->
