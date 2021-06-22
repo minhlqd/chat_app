@@ -1,6 +1,7 @@
 package com.example.chat_android.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,12 +62,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         if (position == mChat.size()-1) {
             if (chat.isIsseen()) {
+                Log.d("seen", "2");
                 holder.txt_seen.setText(R.string.seen);
             } else {
-                holder.txt_seen.setText("delivered");
+                Log.d("seen", "1");
+                holder.txt_seen.setText(R.string.delivered);
             }
         } else {
-                holder.txt_seen.setVisibility(View.GONE);
+            holder.txt_seen.setVisibility(View.GONE);
         }
 
     }

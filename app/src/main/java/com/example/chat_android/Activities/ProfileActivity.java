@@ -120,7 +120,7 @@ public class ProfileActivity extends AppCompatActivity {
                     email.setText(info.getEmail());
                     phone.setText(info.getPhone());
                     Log.d("aaa", info.getPhone().toString());
-                    date.setText(info.getDate());
+                    date.setText((CharSequence) info.getDate());
                 }
 
             }
@@ -187,7 +187,7 @@ public class ProfileActivity extends AppCompatActivity {
                 name_edit.setText(info.getName());
                 email_edit.setText(info.getEmail());
                 phone_edit.setText(info.getPhone());
-                date_edit.setText(info.getDate());
+                date_edit.setText((CharSequence) info.getDate());
             }
 
             @Override

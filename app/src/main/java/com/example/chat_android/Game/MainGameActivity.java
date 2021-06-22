@@ -17,14 +17,17 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.chat_android.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+@SuppressWarnings("ALL")
 public class MainGameActivity extends AppCompatActivity {
 
     //declaration of all variables
@@ -94,6 +97,7 @@ public class MainGameActivity extends AppCompatActivity {
         action = settings.getInt("ACTION", 1);
         coins = settings.getInt("COINS", 0);//here is 0 dont forget
 
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -111,9 +115,14 @@ public class MainGameActivity extends AppCompatActivity {
 
         player.setImageResource(getResources().getIdentifier("player"+action+"a", "drawable", getPackageName()));
 
-        startLb = (ImageButton) findViewById(R.id.start_lb);
+        startLb = findViewById(R.id.start_lb);
 
-        frameLb = (FrameLayout) findViewById(R.id.frame_lb);
+        frameLb = findViewById(R.id.frame_lb);
+
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Game").child(firebaseUser.getUid());
+
 
         WindowManager wm = getWindowManager();
         Display disp = wm.getDefaultDisplay();

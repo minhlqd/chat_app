@@ -24,6 +24,7 @@
                 android:layout_height="30dp"
                 android:id="@+id/profile_image"/>
             <TextView
+                android:fontFamily="@font/montserrat_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/username"
@@ -32,6 +33,15 @@
                 android:textColor="#FFF"
                 android:textStyle="bold"
                 android:layout_marginStart="25dp" />
+
+            <ImageView
+                android:foregroundGravity="right"
+                android:id="@+id/info"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_info_message_foreground"
+                android:layout_marginLeft="230dp"
+                android:layout_marginStart="230dp" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -42,35 +52,28 @@
         android:layout_height="match_parent"
         android:id="@+id/recycler_view"
         android:layout_below="@+id/bar_layout"
-        android:layout_above="@+id/bottom" />
+        android:layout_above="@+id/text_send"/>
 
-    <RelativeLayout
+    <EditText
+        android:fontFamily="@font/montserrat_light"
+        android:id="@+id/text_send"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bottom"
-        android:padding="5dp"
-        android:background="#fff"
-        android:layout_alignParentBottom="true">
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:hint="@string/type_a_message"
+        android:padding="10dp"
+        android:background="@android:color/transparent"/>
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/btn_send"
+        android:src="@drawable/ic_action_name"
+        android:layout_marginBottom="0dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/todo"
+        android:layout_alignParentBottom="true" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_send"
-            android:background="@android:color/transparent"
-            android:hint="@string/type_a_message"
-            android:layout_toLeftOf="@+id/btn_send"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/btn_send"
-            android:autofillHints=""
-            android:inputType="text" />
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/btn_send"
-            android:src="@drawable/ic_action_name"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:contentDescription="@string/todo" />
-    </RelativeLayout>
 
 </RelativeLayout>

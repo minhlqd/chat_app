@@ -12,12 +12,19 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.chat_android.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 @SuppressWarnings("ALL")
 public class ResultActivity extends AppCompatActivity {
 
     int hightScore;
     ImageView medal;
+
+    FirebaseUser firebaseUser;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +39,9 @@ public class ResultActivity extends AppCompatActivity {
         TextView gamesPlayedLabel = (TextView) findViewById(R.id.gamesPlayedLabel);
         medal = (ImageView) findViewById(R.id.medal);
 
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Game").child(firebaseUser.getUid());
 
         int score = getIntent().getIntExtra("SCORE", 0);
         scoreLabel.setText(""+score);

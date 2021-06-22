@@ -1,13 +1,16 @@
 package com.example.chat_android.Models;
 
+import com.example.chat_android.Notifications.Data;
+
+import java.util.Date;
+
 public class Info {
 
     private String name;
     private String email;
     private String phone;
-    private String dateOfBird;
-
-    public Info(String name, String email, String phone, String date) {
+    private Date dateOfBird;
+    public Info(String name, String email, String phone, Date date) {
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -42,11 +45,11 @@ public class Info {
         this.phone = phone;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return dateOfBird;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.dateOfBird = date;
     }
 }

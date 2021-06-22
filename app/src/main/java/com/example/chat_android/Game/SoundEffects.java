@@ -6,9 +6,8 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import com.example.chat_android.R;
-/**
- * Created by Majlindi on 1/31/2018.
- */
+
+
 
 public class SoundEffects {
 

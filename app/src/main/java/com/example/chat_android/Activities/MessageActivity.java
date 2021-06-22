@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ public class MessageActivity extends AppCompatActivity {
     TextView username;
     ImageButton btn_send;
     EditText text_send;
+    ImageView info;
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
@@ -80,18 +82,12 @@ public class MessageActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         btn_send = findViewById(R.id.btn_send);
         text_send = findViewById(R.id.text_send);
+        info = findViewById(R.id.info);
+
 
         intent = getIntent();
         user_id = intent.getStringExtra("user_id");
 
-        username.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(MessageActivity.this, ProfileActivity.class);
-                startActivity(intent1);
-
-            }
-        });
 
 //        profile_image.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -100,6 +96,10 @@ public class MessageActivity extends AppCompatActivity {
 //                startActivity(intent1);
 //            }
 //        });
+
+        info.setOnClickListener(v -> {
+            startActivity(new Intent(MessageActivity.this,InfoMessageActivity.class));
+        });
 
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +140,8 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+        seenMessage(user_id);
+
     }
 
     private void seenMessage(final String userid) {
@@ -152,12 +154,12 @@ public class MessageActivity extends AppCompatActivity {
                     assert chat != null;
                     if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid)) {
                         HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("isseen", true);
+                        hashMap.put("is_seen", true);
                         snapshot.getRef().updateChildren(hashMap);
                     }
+
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -172,7 +174,7 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
-        hashMap.put("isseen", false);
+        hashMap.put("is_seen", false);
 
         reference.child("Chats").push().setValue(hashMap);
 

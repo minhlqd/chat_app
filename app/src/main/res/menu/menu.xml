@@ -6,7 +6,7 @@
         app:showAsAction="never"/>
     <item app:showAsAction="ifRoom"
         android:title="@string/game"
-        android:icon="@drawable/game"
+        android:icon="@drawable/game_"
         android:id="@+id/game"/>
     <item android:id="@+id/reset"
         android:title="@string/reset_password"
